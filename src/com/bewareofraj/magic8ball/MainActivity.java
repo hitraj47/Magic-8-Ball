@@ -3,45 +3,20 @@ package com.bewareofraj.magic8ball;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 
-import com.bewareofraj.magic8ball.util.SystemUiHider;
-
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- * 
- * @see SystemUiHider
- */
-public class SplashScreenActivity extends Activity {
-	
-	private Button btnStart;
+public class MainActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		setContentView(R.layout.activity_splash_screen);
-
-		initializeScreen();
+		setContentView(R.layout.activity_main);
 		
-		btnStart = (Button) findViewById(R.id.btnStart);
-		btnStart.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				Intent mainActivityIntent = new Intent(SplashScreenActivity.this, MainActivity.class);
-				startActivity(mainActivityIntent);
-			}
-		});
-
+		initializeScreen();		
 	}
-
+	
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN) 
 	private void initializeScreen() {
 		// hide action bar

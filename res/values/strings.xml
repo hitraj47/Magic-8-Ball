@@ -7,5 +7,7 @@
     <string name="str_author">Created by: Raj Ramsaroop</string>
     <string name="str_instructions">Ask a question, then shake or flip your device to get an answer...</string>
     <string name="str_btn_start">Start</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
