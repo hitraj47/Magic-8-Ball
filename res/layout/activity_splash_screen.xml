@@ -15,7 +15,9 @@
         android:text="@string/app_name"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#000000"
-        android:textColorHint="#000000" />
+        android:textColorHint="#000000"
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/lblAuthor"
@@ -28,5 +30,28 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#000000"
         android:textColorHint="#000000" />
+
+    <TextView
+        android:id="@+id/lblInstructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/str_instructions"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000" />
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/lblAppName"
+        android:layout_alignRight="@+id/lblAppName"
+        android:layout_below="@+id/lblInstructions"
+        android:layout_marginTop="20dp"
+        android:background="#000"
+        android:text="@string/str_btn_start" />
 
 </RelativeLayout>
