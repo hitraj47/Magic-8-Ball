@@ -3,6 +3,7 @@ package com.bewareofraj.magic8ball;
 import com.bewareofraj.magic8ball.util.SystemUiHider;
 
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
@@ -45,11 +46,18 @@ public class SplashScreenActivity extends Activity {
 	 */
 	private SystemUiHider mSystemUiHider;
 
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_splash_screen);
+
+		// hide action bar
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			ActionBar actionBar = getActionBar();
+			actionBar.hide();
+		}
 
 		final View controlsView = findViewById(R.id.fullscreen_content_controls);
 		final View contentView = findViewById(R.id.fullscreen_content);
@@ -111,11 +119,6 @@ public class SplashScreenActivity extends Activity {
 			}
 		});
 
-		// Upon interacting with UI controls, delay any scheduled hide()
-		// operations to prevent the jarring behavior of controls going away
-		// while interacting with the UI.
-		findViewById(R.id.dummy_button).setOnTouchListener(
-				mDelayHideTouchListener);
 	}
 
 	@Override
