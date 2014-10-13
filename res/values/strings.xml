@@ -2,12 +2,11 @@
 <resources>
 
     <string name="app_name">Magic 8 Ball</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="str_author">Created by: Raj Ramsaroop</string>
-    <string name="str_instructions">Ask a question, then shake or flip your device to get an answer...</string>
+    <string name="str_instructions">Ask a question, then shake your device to get an answer&#8230;</string>
     <string name="str_btn_start">Start</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="str_credits">Uses code from Android Cookbook (Orielly) and sound from oringz.com.</string>
 
 </resources>

@@ -1,5 +1,5 @@
 # Description
-Ask a question then shake or flip your device to get a response.
+Ask a question then shake your device to get a response.
 
 # Demonstration
 Soon...
