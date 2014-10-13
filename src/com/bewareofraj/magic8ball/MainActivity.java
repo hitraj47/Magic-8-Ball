@@ -32,18 +32,41 @@ public class MainActivity extends Activity {
 	// Has shaking motion been started (one direction)
 	private boolean shakeInitiated = false;
 
+	// Screen orientation constants
+	private final String ORIENTATION_UP = "up";
+	private final String ORIENTATION_DOWN = "down";
+
+	// Current orientation of device (facing up/down)
+	private String currentOrientation = ORIENTATION_UP;
+
+	// Previous orientation of device
+	private String prevOrientation = ORIENTATION_DOWN;
+
 	// The SensorEventListener lets us wire up to the real hardware events
 	private final SensorEventListener mySensorEventListener = new SensorEventListener() {
 
 		@Override
 		public void onSensorChanged(SensorEvent se) {
+			// check if the device was shaken, not flipped
 			updateAccelParameters(se.values[0], se.values[1], se.values[2]);
 			if ((!shakeInitiated) && isAccelerationChanged()) {
 				shakeInitiated = true;
 			} else if ((shakeInitiated) && isAccelerationChanged()) {
-				executeShakeAction();
+				giveAnswer();
 			} else if ((shakeInitiated) && (!isAccelerationChanged())) {
 				shakeInitiated = false;
+			}
+
+			// check if the device was flipped
+			float z = se.values[2];
+			if (z > 9 && z < 10) {
+				updateOrientation(ORIENTATION_UP);
+			} else if (z > -10 && z < -9) {
+				updateOrientation(ORIENTATION_DOWN);
+			}
+			if (prevOrientation.equals(ORIENTATION_DOWN)
+					&& currentOrientation.equals(ORIENTATION_UP)) {
+				giveAnswer();
 			}
 		}
 
@@ -51,6 +74,11 @@ public class MainActivity extends Activity {
 		public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		}
 	};
+
+	private void updateOrientation(String newOrientation) {
+		prevOrientation = currentOrientation;
+		currentOrientation = newOrientation;
+	}
 
 	private void updateAccelParameters(float xNewAccel, float yNewAccel,
 			float zNewAccel) {
@@ -76,9 +104,9 @@ public class MainActivity extends Activity {
 				|| (deltaX > shakeThreshold && deltaZ > shakeThreshold)
 				|| (deltaY > shakeThreshold && deltaZ > shakeThreshold);
 	}
-	
-	private void executeShakeAction() {
-		//TODO: display an answer and make the device say it out loud
+
+	private void giveAnswer() {
+		// TODO: display an answer and make the device say it out loud
 	}
 
 	@Override
