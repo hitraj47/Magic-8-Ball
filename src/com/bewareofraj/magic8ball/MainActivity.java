@@ -8,10 +8,10 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -32,6 +32,9 @@ public class MainActivity extends Activity {
 
 	// Has shaking motion been started (one direction)
 	private boolean shakeInitiated = false;
+	
+	// For playing sound
+	private MediaPlayer mediaPlayer;
 
 	// The SensorEventListener lets us wire up to the real hardware events
 	private final SensorEventListener mySensorEventListener = new SensorEventListener() {
@@ -83,7 +86,8 @@ public class MainActivity extends Activity {
 
 	private void giveAnswer() {
 		// TODO: display an answer and make the device say it out loud
-		Toast.makeText(this, "HELLO", Toast.LENGTH_SHORT).show();
+		mediaPlayer = MediaPlayer.create(this, R.raw.new_response);
+		mediaPlayer.start();
 	}
 
 	@Override
@@ -123,5 +127,9 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onStop() {
 		super.onStop();
+		
+		// release resources
+		mediaPlayer.release();
+		mediaPlayer = null;
 	}
 }
