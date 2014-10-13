@@ -11,6 +11,7 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -27,20 +28,10 @@ public class MainActivity extends Activity {
 	private boolean firstUpdate = true;
 
 	// What acceleration difference would we assume as rapid movement?
-	private final float shakeThreshold = 1.5f;
+	private final float shakeThreshold = 8f;
 
 	// Has shaking motion been started (one direction)
 	private boolean shakeInitiated = false;
-
-	// Screen orientation constants
-	private final String ORIENTATION_UP = "up";
-	private final String ORIENTATION_DOWN = "down";
-
-	// Current orientation of device (facing up/down)
-	private String currentOrientation = ORIENTATION_UP;
-
-	// Previous orientation of device
-	private String prevOrientation = ORIENTATION_DOWN;
 
 	// The SensorEventListener lets us wire up to the real hardware events
 	private final SensorEventListener mySensorEventListener = new SensorEventListener() {
@@ -57,28 +48,12 @@ public class MainActivity extends Activity {
 				shakeInitiated = false;
 			}
 
-			// check if the device was flipped
-			float z = se.values[2];
-			if (z > 9 && z < 10) {
-				updateOrientation(ORIENTATION_UP);
-			} else if (z > -10 && z < -9) {
-				updateOrientation(ORIENTATION_DOWN);
-			}
-			if (prevOrientation.equals(ORIENTATION_DOWN)
-					&& currentOrientation.equals(ORIENTATION_UP)) {
-				giveAnswer();
-			}
 		}
 
 		@Override
 		public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		}
 	};
-
-	private void updateOrientation(String newOrientation) {
-		prevOrientation = currentOrientation;
-		currentOrientation = newOrientation;
-	}
 
 	private void updateAccelParameters(float xNewAccel, float yNewAccel,
 			float zNewAccel) {
@@ -88,6 +63,7 @@ public class MainActivity extends Activity {
 			xPreviousAccel = xNewAccel;
 			yPreviousAccel = yNewAccel;
 			zPreviousAccel = zNewAccel;
+			firstUpdate = false;
 		} else {
 			xPreviousAccel = xAccel;
 		}
@@ -107,6 +83,7 @@ public class MainActivity extends Activity {
 
 	private void giveAnswer() {
 		// TODO: display an answer and make the device say it out loud
+		Toast.makeText(this, "HELLO", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
