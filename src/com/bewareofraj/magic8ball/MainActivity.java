@@ -119,4 +119,9 @@ public class MainActivity extends Activity {
 		decorView.setSystemUiVisibility(uiOptions);
 
 	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+	}
 }
