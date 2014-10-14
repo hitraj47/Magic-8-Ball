@@ -1,5 +1,7 @@
 package com.bewareofraj.magic8ball;
 
+import java.util.Random;
+
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -12,6 +14,7 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -28,13 +31,16 @@ public class MainActivity extends Activity {
 	private boolean firstUpdate = true;
 
 	// What acceleration difference would we assume as rapid movement?
-	private final float shakeThreshold = 8f;
+	private final float shakeThreshold = 7f;
 
 	// Has shaking motion been started (one direction)
 	private boolean shakeInitiated = false;
 	
 	// For playing sound
 	private MediaPlayer mediaPlayer;
+	
+	// The message label
+	private TextView lblResponse;
 
 	// The SensorEventListener lets us wire up to the real hardware events
 	private final SensorEventListener mySensorEventListener = new SensorEventListener() {
@@ -85,9 +91,12 @@ public class MainActivity extends Activity {
 	}
 
 	private void giveAnswer() {
-		// TODO: display an answer and make the device say it out loud
 		mediaPlayer = MediaPlayer.create(this, R.raw.new_response);
 		mediaPlayer.start();
+		
+		String[] responses = getResources().getStringArray(R.array.responses);
+		Random r = new Random();
+		lblResponse.setText(responses[r.nextInt(responses.length)]);
 	}
 
 	@Override
@@ -101,6 +110,8 @@ public class MainActivity extends Activity {
 				SensorManager.SENSOR_DELAY_NORMAL);
 
 		initializeScreen();
+		
+		lblResponse = (TextView) findViewById(R.id.lblResponse);
 	}
 
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
