@@ -7,7 +7,7 @@
     <string name="str_btn_start">Start</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="hello_world">Hello world!</string>
-    <string name="str_credits">Uses code from Android Cookbook (Orielly) and sound from oringz.com.</string>
+    <string name="str_credits">Uses code from Android Cookbook (Orielly) || sound from oringz.com. || Speech files from yakitome.com</string>
     <string-array name="responses">
         <item android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/response1">My reply is no</item>
         <item android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/response2">Yes definitely</item>
