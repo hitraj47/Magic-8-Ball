@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
 
 		@Override
 		public void onSensorChanged(SensorEvent se) {
-			// check if the device was shaken, not flipped
+			// check if the device was shaken, not stirred
 			updateAccelParameters(se.values[0], se.values[1], se.values[2]);
 			if ((!shakeInitiated) && isAccelerationChanged()) {
 				shakeInitiated = true;
