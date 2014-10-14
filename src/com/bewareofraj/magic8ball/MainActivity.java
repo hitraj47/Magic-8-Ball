@@ -13,6 +13,7 @@ import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
@@ -35,12 +36,21 @@ public class MainActivity extends Activity {
 
 	// Has shaking motion been started (one direction)
 	private boolean shakeInitiated = false;
-	
+
 	// For playing sound
 	private MediaPlayer mediaPlayer;
-	
+
 	// The message label
 	private TextView lblResponse;
+
+	// The speech files for each response
+	private int[] speechResponses = { R.raw.response1, R.raw.response2,
+			R.raw.response3, R.raw.response4, R.raw.response5, R.raw.response6,
+			R.raw.response7, R.raw.response8, R.raw.response9,
+			R.raw.response10, R.raw.response11, R.raw.response12,
+			R.raw.response13, R.raw.response14, R.raw.response15,
+			R.raw.response16, R.raw.response17, R.raw.response18,
+			R.raw.response19, R.raw.response20 };
 
 	// The SensorEventListener lets us wire up to the real hardware events
 	private final SensorEventListener mySensorEventListener = new SensorEventListener() {
@@ -96,7 +106,20 @@ public class MainActivity extends Activity {
 		
 		String[] responses = getResources().getStringArray(R.array.responses);
 		Random r = new Random();
-		lblResponse.setText(responses[r.nextInt(responses.length)]);
+		int responseIndex = r.nextInt(responses.length);
+		lblResponse.setText(responses[responseIndex]);
+		mediaPlayer = MediaPlayer.create(this, speechResponses[responseIndex]);
+		
+		Handler handler = new Handler();
+		handler.postDelayed(new Runnable() {
+			
+			@Override
+			public void run() {
+				mediaPlayer.start();
+			}
+		}, 1000);
+
+		
 	}
 
 	@Override
@@ -110,8 +133,9 @@ public class MainActivity extends Activity {
 				SensorManager.SENSOR_DELAY_NORMAL);
 
 		initializeScreen();
-		
+
 		lblResponse = (TextView) findViewById(R.id.lblResponse);
+
 	}
 
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -134,11 +158,11 @@ public class MainActivity extends Activity {
 		decorView.setSystemUiVisibility(uiOptions);
 
 	}
-	
+
 	@Override
 	protected void onStop() {
 		super.onStop();
-		
+
 		// release resources
 		mediaPlayer.release();
 		mediaPlayer = null;
